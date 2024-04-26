@@ -7,13 +7,11 @@ class Tournament
     header = "Team                           | MP |  W |  D |  L |  P\n"
     header + standings
   end
-
 end
-
 
 RSpec.describe Tournament do
   describe 'A tournamnet exists' do
-    tournament = Tournament.new
+    tournament = described_class.new
     it 'returns a header for the tournament' do
       input = <<~INPUT
 
