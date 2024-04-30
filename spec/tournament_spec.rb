@@ -1,16 +1,9 @@
 # frozen_string_literal: true
 
-class Tournament
-  def initialize; end
-
-  def tally(standings)
-    header = "Team                           | MP |  W |  D |  L |  P\n"
-    header + standings
-  end
-end
+require_relative '../lib/tournament'
 
 RSpec.describe Tournament do
-  describe 'A tournamnet exists' do
+  describe 'A tournament exists' do
     tournament = described_class.new
     it 'returns a header for the tournament' do
       input = <<~INPUT
@@ -18,7 +11,7 @@ RSpec.describe Tournament do
       INPUT
 
       expected = <<~TALLY
-        Team                           | MP |  W |  D |  L |  P\n
+        Team                           | MP |  W |  D |  L |  P
       TALLY
 
       expect(tournament.tally(input)).to eq(expected)
@@ -33,9 +26,9 @@ RSpec.describe Tournament do
         Allegoric Alaskans;Blithering Badgers;win
       INPUT
       expected = <<~TALLY
-        Team                           | MP |  W |  D |  L |  P\n
-        Allegoric Alaskans             |  1 |  1 |  0 |  0 |  3\n
-        Blithering Badgers             |  1 |  0 |  0 |  1 |  3\n
+        Team                           | MP |  W |  D |  L |  P
+        Allegoric Alaskans             |  1 |  1 |  0 |  0 |  3
+        Blithering Badgers             |  1 |  0 |  0 |  1 |  0
       TALLY
       expect(tournament.tally(input)).to eq(expected)
     end
