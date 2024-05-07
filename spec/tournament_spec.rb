@@ -3,9 +3,9 @@
 require_relative '../lib/tournament'
 
 RSpec.describe Tournament do
-  describe 'Tally method' do
-    let(:tournament) { described_class.new }
+  subject(:tournament) { described_class.new }
 
+  describe 'tournamen results' do
     it 'returns a header for the tournament' do
       input = <<~INPUT
       INPUT

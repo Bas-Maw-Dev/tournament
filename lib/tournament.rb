@@ -20,19 +20,19 @@ class Tournament
 end
 
 def sort_function(standings)
-  team_1 = standings[0]
-  team_2 = standings[1]
+  team_one = standings[0]
+  team_two = standings[1]
   result = standings[2].strip
 
-  update_results(team_1, result)
+  update_results(team_one, result)
 
   case result
   when 'win'
-    update_results(team_2, 'loss')
+    update_results(team_two, 'loss')
   when 'loss'
-    update_results(team_2, 'win')
+    update_results(team_two, 'win')
   when 'draw'
-    update_results(team_2, 'draw')
+    update_results(team_two, 'draw')
   else
     raise 'Incorrect result entered'
   end
