@@ -19,9 +19,12 @@ RSpec.describe Tournament do
   end
 
   describe 'Tournaments are recorded correctly' do
-    tournament = described_class.new
+    before(:each) do
+      @tournament = described_class.new
+    end
+    
     # rubocop:disable RSpec/ExampleLength
-    it 'wins are worth 3 points' do 
+    it 'wins are worth 3 points' do
       input = <<~INPUT
         Allegoric Alaskans;Blithering Badgers;win
       INPUT
@@ -30,8 +33,20 @@ RSpec.describe Tournament do
         Allegoric Alaskans             |  1 |  1 |  0 |  0 |  3
         Blithering Badgers             |  1 |  0 |  0 |  1 |  0
       TALLY
-      expect(tournament.tally(input)).to eq(expected)
+      expect(@tournament.tally(input)).to eq(expected)
     end
 
+    it 'can record a different team winning' do
+    input = <<~INPUT
+      Blithering Badgers;Allegoric Alaskans;win
+    INPUT
+    expected = <<~TALLY
+      Team                           | MP |  W |  D |  L |  P
+      Blithering Badgers             |  1 |  1 |  0 |  0 |  3
+      Allegoric Alaskans             |  1 |  0 |  0 |  1 |  0
+    TALLY
+    expect(@tournament.tally(input)).to eq(expected)
+    end
   end
+  # rubocop:enable RSpec/ExampleLength
 end
