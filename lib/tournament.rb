@@ -47,6 +47,10 @@ def update_results(team, result)
   when 'loss'
     @teams[team][:l] += 1
     @teams[team][:mp] += 1
+  when 'draw'
+    @teams[team][:d] += 1
+    @teams[team][:mp] += 1
+    @teams[team][:p] += 1
   else
     raise 'Team or result incorrect format'
   end
