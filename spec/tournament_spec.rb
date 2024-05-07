@@ -44,5 +44,18 @@ RSpec.describe Tournament do
 
       expect(tournament.tally(input)).to eq(expected)
     end
+
+    it 'records a draw as 1 point' do
+      input = <<~INPUT
+        Allegoric Alaskans;Blithering Badgers;draw
+      INPUT
+      expected = <<~TALLY
+        Team                           | MP |  W |  D |  L |  P
+        Allegoric Alaskans             |  1 |  0 |  1 |  0 |  1
+        Blithering Badgers             |  1 |  0 |  1 |  0 |  1
+      TALLY
+
+      expect(tournament.tally(input)).to eq(expected)
+    end
   end
 end
