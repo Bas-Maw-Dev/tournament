@@ -3,11 +3,11 @@
 require_relative '../lib/tournament'
 
 RSpec.describe Tournament do
-  describe 'A tournament exists' do
-    tournament = described_class.new
+  describe 'Tally method' do
+    let(:tournament) { described_class.new }
+
     it 'returns a header for the tournament' do
       input = <<~INPUT
-
       INPUT
 
       expected = <<~TALLY
@@ -16,37 +16,33 @@ RSpec.describe Tournament do
 
       expect(tournament.tally(input)).to eq(expected)
     end
-  end
 
-  describe 'Tournaments are recorded correctly' do
-    before(:each) do
-      @tournament = described_class.new
-    end
-    
-    # rubocop:disable RSpec/ExampleLength
-    it 'wins are worth 3 points' do
+    it 'records wins correctly' do
       input = <<~INPUT
         Allegoric Alaskans;Blithering Badgers;win
       INPUT
+
       expected = <<~TALLY
         Team                           | MP |  W |  D |  L |  P
         Allegoric Alaskans             |  1 |  1 |  0 |  0 |  3
         Blithering Badgers             |  1 |  0 |  0 |  1 |  0
       TALLY
-      expect(@tournament.tally(input)).to eq(expected)
+
+      expect(tournament.tally(input)).to eq(expected)
     end
 
-    it 'can record a different team winning' do
-    input = <<~INPUT
-      Blithering Badgers;Allegoric Alaskans;win
-    INPUT
-    expected = <<~TALLY
-      Team                           | MP |  W |  D |  L |  P
-      Blithering Badgers             |  1 |  1 |  0 |  0 |  3
-      Allegoric Alaskans             |  1 |  0 |  0 |  1 |  0
-    TALLY
-    expect(@tournament.tally(input)).to eq(expected)
+    it 'records different team wins correctly' do
+      input = <<~INPUT
+        Blithering Badgers;Allegoric Alaskans;win
+      INPUT
+
+      expected = <<~TALLY
+        Team                           | MP |  W |  D |  L |  P
+        Blithering Badgers             |  1 |  1 |  0 |  0 |  3
+        Allegoric Alaskans             |  1 |  0 |  0 |  1 |  0
+      TALLY
+
+      expect(tournament.tally(input)).to eq(expected)
     end
   end
-  # rubocop:enable RSpec/ExampleLength
 end
